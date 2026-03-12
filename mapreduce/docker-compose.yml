@@ -1,0 +1,25 @@
+services:
+  hadoop-matrix:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hadoop-matrix-multiply
+    hostname: localhost
+    environment:
+      - M=6
+      - N=6
+      - P=6
+      - B=2
+    ports:
+      - "9870:9870" # HDFS NameNode Web UI
+      - "8088:8088" # YARN ResourceManager Web UI
+      - "9000:9000" # HDFS
+    volumes:
+      - hadoop_namenode:/hadoop/dfs/name
+      - hadoop_datanode:/hadoop/dfs/data
+    stdin_open: true
+    tty: true
+
+volumes:
+  hadoop_namenode:
+  hadoop_datanode:
